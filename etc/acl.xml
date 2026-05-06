@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::system">
+                    <resource id="Magebit_Mcp::mcp">
+                        <resource id="Magebit_Mcp::tools">
+
+                            <!-- Read tools -->
+                            <resource id="Magebit_McpCmsTools::tool_cms_page_list"
+                                      title="Tool: List CMS Pages" sortOrder="100"/>
+                            <resource id="Magebit_McpCmsTools::tool_cms_page_get"
+                                      title="Tool: Get CMS Page" sortOrder="101"/>
+                            <resource id="Magebit_McpCmsTools::tool_cms_block_list"
+                                      title="Tool: List CMS Blocks" sortOrder="110"/>
+                            <resource id="Magebit_McpCmsTools::tool_cms_block_get"
+                                      title="Tool: Get CMS Block" sortOrder="111"/>
+
+                            <!-- Write tools -->
+                            <resource id="Magebit_McpCmsTools::tool_cms_page_create"
+                                      title="Tool: Create CMS Page" sortOrder="200"/>
+                            <resource id="Magebit_McpCmsTools::tool_cms_page_update"
+                                      title="Tool: Update CMS Page" sortOrder="201"/>
+                            <resource id="Magebit_McpCmsTools::tool_cms_page_delete"
+                                      title="Tool: Delete CMS Page" sortOrder="202"/>
+                            <resource id="Magebit_McpCmsTools::tool_cms_block_create"
+                                      title="Tool: Create CMS Block" sortOrder="210"/>
+                            <resource id="Magebit_McpCmsTools::tool_cms_block_update"
+                                      title="Tool: Update CMS Block" sortOrder="211"/>
+                            <resource id="Magebit_McpCmsTools::tool_cms_block_delete"
+                                      title="Tool: Delete CMS Block" sortOrder="212"/>
+
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>
