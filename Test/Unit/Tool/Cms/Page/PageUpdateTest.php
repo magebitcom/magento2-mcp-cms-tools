@@ -14,6 +14,7 @@ use Magebit\McpCmsTools\Tool\Cms\Page\PageUpdate;
 use Magento\Cms\Api\Data\PageInterface;
 use Magento\Cms\Api\PageRepositoryInterface;
 use Magento\Cms\Model\Page as PageModel;
+use Magento\Cms\Model\Page\Authorization as PageAuthorization;
 use Magento\Framework\Exception\LocalizedException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -32,10 +33,17 @@ class PageUpdateTest extends TestCase
     // phpcs:ignore Magento2.Commenting.ClassPropertyPHPDocFormatting
     private PageRepositoryInterface&MockObject $pageRepository;
 
+    /**
+     * @var PageAuthorization&MockObject
+     */
+    // phpcs:ignore Magento2.Commenting.ClassPropertyPHPDocFormatting
+    private PageAuthorization&MockObject $authorization;
+
     protected function setUp(): void
     {
         $this->entityFinder = $this->createMock(EntityFinderInterface::class);
         $this->pageRepository = $this->createMock(PageRepositoryInterface::class);
+        $this->authorization = $this->createMock(PageAuthorization::class);
     }
 
     public function testNewIdentifierBecomesIdentifierInPatch(): void
@@ -139,7 +147,12 @@ class PageUpdateTest extends TestCase
 
     private function tool(): PageUpdate
     {
-        return new PageUpdate($this->entityFinder, $this->pageRepository, new PageFieldApplier());
+        return new PageUpdate(
+            $this->entityFinder,
+            $this->pageRepository,
+            new PageFieldApplier(),
+            $this->authorization
+        );
     }
 
     /**
