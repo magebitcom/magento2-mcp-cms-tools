@@ -22,6 +22,7 @@ use Magento\Cms\Api\Data\PageInterface;
 use Magento\Cms\Api\Data\PageInterfaceFactory;
 use Magento\Cms\Api\PageRepositoryInterface;
 use Magento\Cms\Model\Page as PageModel;
+use Magento\Cms\Model\Page\Authorization as PageAuthorization;
 use Magento\Framework\Exception\LocalizedException;
 
 /**
@@ -37,11 +38,13 @@ class PageCreate implements ToolInterface, UnderlyingAclAwareInterface
      * @param PageRepositoryInterface $pageRepository
      * @param PageInterfaceFactory $pageFactory
      * @param PageFieldApplier $fieldApplier
+     * @param PageAuthorization $authorization
      */
     public function __construct(
         private readonly PageRepositoryInterface $pageRepository,
         private readonly PageInterfaceFactory $pageFactory,
-        private readonly PageFieldApplier $fieldApplier
+        private readonly PageFieldApplier $fieldApplier,
+        private readonly PageAuthorization $authorization
     ) {
     }
 
@@ -153,6 +156,11 @@ class PageCreate implements ToolInterface, UnderlyingAclAwareInterface
 
         $stores = $this->fieldApplier->extractStores($arguments) ?? [0];
         $page->setStores($stores);
+
+        // The webapi_rest/webapi_soap PageAclPlugin doesn't fire in the
+        // frontend area where the MCP controller lives, so the save_design
+        // ACL has to be enforced here to keep parity with the admin UI.
+        $this->authorization->authorizeFor($page);
 
         $saved = $this->pageRepository->save($page);
 
