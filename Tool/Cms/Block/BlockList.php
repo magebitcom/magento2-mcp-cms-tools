@@ -78,11 +78,19 @@ class BlockList implements ToolInterface
     {
         return Schema::object()
             ->with(Filters::describing(
-                'Filter clauses. Built-in keys: identifier '
-                . '(scalar | *glob* | array ⇒ IN), title (substring), '
-                . 'is_active (bool), store_id, website_id (expanded '
-                . 'to matching store-view ids), created_at_from, '
-                . 'created_at_to, update_time_from, update_time_to.'
+                'Filter clauses. Scalar or array values (array ⇒ IN); '
+                . '`website_id` is expanded to the matching store-view ids.',
+                [
+                    'identifier' => ['type' => ['string', 'array'], 'description' => 'Block id string: exact, `*glob*` wildcard, or array ⇒ IN.'],
+                    'title' => ['type' => 'string', 'description' => 'Substring match on block title.'],
+                    'is_active' => ['type' => 'boolean', 'description' => 'Enabled (true) or disabled (false).'],
+                    'store_id' => ['type' => ['integer', 'array'], 'description' => 'Store view id(s).'],
+                    'website_id' => ['type' => ['integer', 'array'], 'description' => 'Website id(s), expanded to store-view ids.'],
+                    'created_at_from' => ['type' => 'string', 'description' => 'Created ISO date/datetime lower bound.'],
+                    'created_at_to' => ['type' => 'string', 'description' => 'Created ISO date/datetime upper bound.'],
+                    'update_time_from' => ['type' => 'string', 'description' => 'Updated ISO date/datetime lower bound.'],
+                    'update_time_to' => ['type' => 'string', 'description' => 'Updated ISO date/datetime upper bound.'],
+                ]
             ))
             ->with(Sort::fields(BlockSearchCriteriaBuilder::SORTABLE_FIELDS, 'update_time'))
             ->with(Pagination::maxPageSize(BlockSearchCriteriaBuilder::MAX_PAGE_SIZE))
