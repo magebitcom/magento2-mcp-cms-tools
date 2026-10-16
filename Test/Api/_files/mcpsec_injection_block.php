@@ -24,6 +24,8 @@ $block = $om->create(Block::class);
 $block->setIdentifier(InjectionPayload::BLOCK_IDENTIFIER)
     ->setTitle('MCPSEC injection block')
     ->setContent(InjectionPayload::TEXT)
-    ->setIsActive(true)
-    ->setStores([0]);
-$om->get(BlockRepositoryInterface::class)->save($block);
+    ->setIsActive(true);
+$block->setData('stores', [0]);
+/** @var BlockRepositoryInterface $repository */
+$repository = $om->get(BlockRepositoryInterface::class);
+$repository->save($block);

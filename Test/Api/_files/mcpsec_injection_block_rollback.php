@@ -19,7 +19,9 @@ use Magento\TestFramework\Helper\Bootstrap;
 $om = Bootstrap::getObjectManager();
 /** @var BlockRepositoryInterface $repository */
 $repository = $om->get(BlockRepositoryInterface::class);
-$collection = $om->get(CollectionFactory::class)->create()
+/** @var CollectionFactory $collectionFactory */
+$collectionFactory = $om->get(CollectionFactory::class);
+$collection = $collectionFactory->create()
     ->addFieldToFilter('identifier', InjectionPayload::BLOCK_IDENTIFIER);
 /** @var Block $block */
 foreach ($collection as $block) {
