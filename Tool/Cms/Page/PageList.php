@@ -69,7 +69,7 @@ class PageList implements ToolInterface
     {
         return 'Search CMS pages with optional filters (identifier, title, '
             . 'is_active, store_id, created_at range, update_time range) and '
-            . 'paging. Each row is the same shape as `cms.page.get`; use '
+            . 'paging. Each row is the same shape as `cms_page_get`; use '
             . '`fields`/`exclude` to narrow.';
     }
 
