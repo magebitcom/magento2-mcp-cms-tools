@@ -68,7 +68,7 @@ class BlockList implements ToolInterface
     {
         return 'Search CMS blocks with optional filters (identifier, title, '
             . 'is_active, store_id, created_at range, update_time range) and '
-            . 'paging. Each row is the same shape as `cms.block.get`.';
+            . 'paging. Each row is the same shape as `cms_block_get`.';
     }
 
     /**
