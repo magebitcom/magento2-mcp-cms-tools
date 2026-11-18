@@ -112,15 +112,13 @@ class BlockUpdateTest extends TestCase
      */
     private function makeConcreteBlockMock(): BlockModel&MockObject
     {
-        // setStores is a magic accessor on AbstractModel — needs addMethods.
-        return $this->getMockBuilder(BlockModel::class)
+        return $this->getMockBuilder(BlockWithStores::class)
             ->disableOriginalConstructor()
             ->onlyMethods([
                 'setIdentifier', 'setTitle', 'setContent',
-                'setIsActive',
+                'setIsActive', 'setStores',
                 'getId', 'getIdentifier', 'getTitle', 'isActive',
             ])
-            ->addMethods(['setStores'])
             ->getMock();
     }
 
