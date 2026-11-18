@@ -160,15 +160,13 @@ class PageUpdateTest extends TestCase
      */
     private function makeConcretePageMock(): PageModel&MockObject
     {
-        // setStores is a magic accessor on AbstractModel — needs addMethods.
-        return $this->getMockBuilder(PageModel::class)
+        return $this->getMockBuilder(PageWithStores::class)
             ->disableOriginalConstructor()
             ->onlyMethods([
                 'setIdentifier', 'setTitle', 'setContent',
-                'setIsActive',
+                'setIsActive', 'setStores',
                 'getId', 'getIdentifier', 'getTitle', 'isActive',
             ])
-            ->addMethods(['setStores'])
             ->getMock();
     }
 
